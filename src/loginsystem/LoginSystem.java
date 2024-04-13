@@ -4,21 +4,25 @@
  */
 package com.mycompany.loginsystemproject;
 
-/**
- *
- * @author chixi
- */
+
 import java.util.*;
 import java.io.*;
 import java.security.*;
 
+/**
+ *
+ * @author Billy Lu
+ */
 public class LoginSystem {
-    
-
+    private static final String fileName = "users.txt";
+    /**
+     * Save a user into a .txt file
+     * @param user    user to be saved
+     */
     public void saveUser(User user) {
         user.setPassword(encryption(user.getPassword()+user.getSalt()));
         try {
-            PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true));
+            PrintWriter pw = new PrintWriter(new FileWriter(fileName, true));
             pw.println(user + ", ");
             pw.close();
         } catch (Exception e) {
@@ -26,6 +30,11 @@ public class LoginSystem {
         }
     }
 
+    /**
+     * Encrypt a password 
+     * @param password   password to be encrypted
+     * @return
+     */
     public String encryption(String password) {
         //java helper class to perform encryption
         String encryptedPassword = "";
@@ -46,6 +55,15 @@ public class LoginSystem {
         return encryptedPassword;
     }
 
+    /**
+     *  Register a user
+     * @param username   Username of the user
+     * @param password   password of the user
+     * @param email      email of the user
+     * @param phoneNumber phone number of the user
+     * @param address    address of the user
+     * @return    -1 if username already exists. -2 if password is invalid, 1 if register is successful
+     */
     public int register(String username, String password, String email, String phoneNumber, String address) {
         if (!isUniqueName(username)) {
             return (-1);
@@ -59,6 +77,12 @@ public class LoginSystem {
         return 1;
     }
 
+    /**
+     * Login a user
+     * @param username   Username of the user
+     * @param password   password of the user
+     * @return    1 if success, -1 if password or username is incorrect
+     */ 
     public int login(String username, String password) {
         ArrayList<User> users = loadAllUser();
         for (User user : users) {
@@ -70,10 +94,14 @@ public class LoginSystem {
         return -1;
     }
 
+    /**
+     *  load all users in to an arraylist
+     * @return  every user in user.txt file
+     */
     public ArrayList<User> loadAllUser() {
         ArrayList<User> users = new ArrayList<User>();
         try {
-            File file = new File("users.txt");
+            File file = new File(fileName);
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
@@ -88,6 +116,11 @@ public class LoginSystem {
         return users;
     }
 
+    /**
+     * Check if user name is unique
+     * @param username
+     * @return
+     */
     public boolean isUniqueName(String username) {
         ArrayList<User> users = loadAllUser();
         for (User user : users) {
@@ -98,6 +131,11 @@ public class LoginSystem {
         return true;
     }
 
+    /**
+     * check if password is valid
+     * @param password
+     * @return true if valid, false otherwise
+     */
     public boolean isOkPassword(String password) {
         if (password.length() < 8) {
             return false;
@@ -107,7 +145,12 @@ public class LoginSystem {
         }
         return true;
     }
-      public String generateSalt(){
+
+    /**
+     *  Generate a random salt
+     * @return   4 digit salt 
+     */
+    public String generateSalt(){
           String salt = "";
       for (int i = 0; i < 4; i++) {
             salt += (char)((Math.random() * 90)+33);

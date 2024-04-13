@@ -5,8 +5,8 @@
 package com.mycompany.loginsystemproject;
 
 /**
- *
- * @author chixi
+ * 
+ * @author Billy Lu
  */
 public class User{
   private String username;
@@ -15,9 +15,19 @@ public class User{
   private String phoneNumber;
   private String address;
   private String salt;
+  private static final String DELIMITER = ", ";
   
-  
-  public User(String username, String password, String email, String phoneNumber, String address, String salt) {
+    /**
+     * Constructor for User
+     * 
+     * @param username
+     * @param password
+     * @param email
+     * @param phoneNumber
+     * @param address
+     * @param salt
+     */
+    public User(String username, String password, String email, String phoneNumber, String address, String salt) {
     this.username = username;
     this.email = email;
     this.phoneNumber = phoneNumber;
@@ -25,14 +35,25 @@ public class User{
     this.password = password;
     this.salt = salt;
   }
-  public User(String username, String password, String email) {
+
+    /**
+     * Constructor for User
+     * @param username
+     * @param password
+     * @param email
+     */
+    public User(String username, String password, String email) {
     this.username = username;
     this.email = email;
     this.phoneNumber = "";
     this.address = "";
     this.password = password;}
   
-  public User(String[] info){
+    /**
+     * Constructor for User
+     * @param info   Take in a array of strings containing the info needed for a user 
+     */
+    public User(String[] info){
     this.username = info[0];
     this.email = info[2];
     this.phoneNumber = info[3];
@@ -40,19 +61,44 @@ public class User{
     this.password = info[1];
   }
   
-  public String toString(){
-    return username + ", " + password  + ", "+ email + ", " + phoneNumber + ", " + address+ ", " + salt;
+    /**
+     * Overide tostring method for user, printing all information seperated by delimeter.
+     * @return
+     */
+ 
+    public String toString(){
+    return username + DELIMITER + password  + DELIMITER + email + DELIMITER + phoneNumber + DELIMITER + address+ DELIMITER + salt;
   }
-  public String getUsername(){
+
+    /**
+     * Return user's username
+     * @return
+     */
+    public String getUsername(){
       return username;
     }
-  public void setPassword(String password){
+
+    /**
+     * set user's password
+     * @param password
+     */
+    public void setPassword(String password){
       this.password = password;
     }
-  public String getPassword(){
+
+    /**
+     * Return user's password
+     * @return
+     */
+    public String getPassword(){
       return password;
     }
-  public String getSalt(){
+
+    /**
+     * Return user's salt
+     * @return
+     */
+    public String getSalt(){
       return salt;
     }
 

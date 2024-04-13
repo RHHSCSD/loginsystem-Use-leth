@@ -6,7 +6,7 @@ package com.mycompany.loginsystemproject;
 
 /**
  *
- * @author chixi
+ * @author Billy Lu
  */
 public class NewJFrame extends javax.swing.JFrame {
 
